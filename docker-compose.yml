@@ -1,0 +1,44 @@
+# Menjalankan seluruh stack secara lokal: docker compose up --build
+# Database lokal ini HANYA untuk pengembangan. Untuk tim/produksi pakai Neon atau Supabase (lihat docs/DATABASE.md).
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: mkb
+      POSTGRES_USER: mkb
+      POSTGRES_PASSWORD: mkb
+    ports:
+      - "5432:5432"
+    volumes:
+      - mkb-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mkb -d mkb"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/mkb
+      DATABASE_USERNAME: mkb
+      DATABASE_PASSWORD: mkb
+      CORS_ALLOWED_ORIGINS: http://localhost:5173
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:8080
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mkb-data:

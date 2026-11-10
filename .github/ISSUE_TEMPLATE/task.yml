@@ -1,0 +1,22 @@
+name: Tugas / fitur
+description: Pekerjaan yang akan dikerjakan anggota kelompok
+labels: ["task"]
+body:
+  - type: input
+    id: modul
+    attributes:
+      label: Modul
+      placeholder: Hewan / Kandang / Pakan / Gudang / Staf / Pengunjung / Tiket
+    validations:
+      required: true
+  - type: textarea
+    id: deskripsi
+    attributes:
+      label: Deskripsi
+    validations:
+      required: true
+  - type: textarea
+    id: kriteria
+    attributes:
+      label: Kriteria selesai
+      placeholder: "- [ ] Entity + relasi\n- [ ] Endpoint\n- [ ] Halaman frontend\n- [ ] Tes"

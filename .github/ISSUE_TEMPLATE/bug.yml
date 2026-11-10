@@ -1,0 +1,20 @@
+name: Bug
+description: Ada yang tidak berjalan sesuai harapan
+labels: ["bug"]
+body:
+  - type: textarea
+    id: apa
+    attributes:
+      label: Apa yang terjadi?
+    validations:
+      required: true
+  - type: textarea
+    id: langkah
+    attributes:
+      label: Langkah mereproduksi
+    validations:
+      required: true
+  - type: textarea
+    id: harapan
+    attributes:
+      label: Hasil yang diharapkan

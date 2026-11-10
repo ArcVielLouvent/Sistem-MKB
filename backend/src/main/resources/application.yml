@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: sistem-mkb
+  datasource:
+    # Neon    : jdbc:postgresql://<endpoint>.neon.tech/<db>?sslmode=require
+    # Supabase: jdbc:postgresql://<host>:5432/postgres?sslmode=require
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/mkb}
+    username: ${DATABASE_USERNAME:mkb}
+    password: ${DATABASE_PASSWORD:mkb}
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    # true supaya DTO boleh membaca relasi lazy di controller (cukup untuk skala tubes)
+    open-in-view: true
+
+server:
+  port: ${PORT:8080}
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
